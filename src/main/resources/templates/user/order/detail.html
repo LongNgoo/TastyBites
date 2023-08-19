@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/index :: dynamic(~{::main})}">
+<body>
+	<main th:object="${order}">
+		<section class="breadcrumb-section set-bg" data-setbg="/assets/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Order Detail</h2>
+                        <div class="breadcrumb__option">
+                            <a th:href="@{/home/index}">Home</a>
+                            <span>Order Detail</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    </section>
+	    <!-- Breadcrumb Section End -->
+
+	    <section class="h-100 gradient-custom">
+		  <div class="container py-5 h-100">
+		    <div class="row d-flex justify-content-center align-items-center h-100">
+		      <div class="col-lg-10 col-xl-12">
+		        <div class="card" style="border-radius: 10px;">
+		          <div class="card-header px-4 py-5">
+		            <h5 class="text-muted mb-0">Cảm ơn <span th:text="*{account.fullname}" style="color: #7fad39;font-weight: bold;"></span> đã lựa chọn sản phẩm của chúng tôi! Rất vui được phục vụ bạn.  <i style="color: #7fad39" class="fa-solid fa-heart"></i></h5>
+		          </div>
+		          <div class="card-body p-4">
+		            <div class="d-flex justify-content-between align-items-center mb-4">
+		              <p class="lead fw-normal mb-0" style="color: #7fad39;">Receipt</p>
+		              <p class="small text-muted mb-0">Receipt Voucher : <span style="font-weight: bold;">[[${discount.code}]]</span></p>
+		            </div>
+		            <div class="card shadow-0 border mb-4">
+		              <div class="card-body">
+		              	<div class="row">
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0" style="font-weight: bold;">Hình</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0" style="font-weight: bold;">Mã Sản Phẩm</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small" style="font-weight: bold;">Tên Sản Phẩm</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small" style="font-weight: bold;">Giá</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small" style="font-weight: bold;">Số Lượng</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small" style="font-weight: bold;">Tổng</span></p>
+		                  </div>
+		                </div>
+		                <div class="row" id="orderDetails" th:each="detail:*{orderDetails}" th:object="${detail}">
+		                  <div class="col-md-2 mt-4" >
+		                    <img th:src="@{'/assets/img/product/' + *{product.image}}"
+		                      class="img-fluid" alt="Phone">
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0">[[*{product.id}]]</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small">[[*{product.name}]]</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small">[[*{#numbers.formatDecimal(price,0,'POINT',0,'POINT')}]] &nbsp<span style="text-decoration: underline;">đ</span> </p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small">[[*{quantity}]]</p>
+		                  </div>
+		                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+		                    <p class="text-muted mb-0 small">[[*{#numbers.formatDecimal(price*quantity,0,'POINT',0,'POINT')}]] &nbsp<span style="text-decoration: underline;">đ</span></p>
+		                  </div>
+		                </div>
+		                
+		                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+		                <div class="row d-flex align-items-center">
+		                  <div class="col-md-2">
+		                    <p class="text-muted mb-0 small">Track Order</p>
+		                  </div>
+		                  <div class="col-md-10">
+		                    <div class="progress" style="height: 6px; border-radius: 16px;">
+		                      <div class="progress-bar" role="progressbar"
+		                        style="width: 65%; border-radius: 16px; background-color: #7fad39;" aria-valuenow="65"
+		                        aria-valuemin="0" aria-valuemax="100"></div>
+		                    </div>
+		                    <div class="d-flex justify-content-around mb-1">
+		                      <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivary</p>
+		                      <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
+		                    </div>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		
+		            <div class="d-flex justify-content-between pt-2">
+		              <p class="fw-bold mb-0">Chi Tiết Hóa Đơn</p>
+		              <p class="text-muted mb-0"><span class="fw-bold me-4">Tổng tiền:</span>&nbsp<span style="font-weight: bold;" th:text="${#numbers.formatDecimal(total, 0, 'POINT', 0, 'POINT')}"></span>&nbsp<span style="text-decoration: underline; font-weight: bold;">đ</span></p>
+		            </div>
+		
+		            <div class="d-flex justify-content-between pt-2">
+		              <p class="text-muted mb-0">Mã hóa đơn:
+		              	 <span style="font-weight: bold;" th:text="*{id}" readonly></span>
+		              </p>
+		              <p class="text-muted mb-0"><span class="fw-bold me-4">Phí vận chuyển: </span> <span style="font-weight: bold;">15.000 đ</span></p>	              
+		            </div>
+		
+		            <div class="d-flex justify-content-between pt-2">
+		              <p class="text-muted mb-0">Người nhận:
+		              	<span style="font-weight: bold;" th:text="*{account.username}" readonly="readonly"></span>
+		              </p>
+		              <p class="text-muted mb-0" th:inline="text"><span class="fw-bold me-4">Giảm giá: </span> <span style="font-weight: bold;" th:text="${#numbers.formatDecimal(discount.price, 0, 'POINT', 0, 'POINT')}"></span>&nbsp<span style="text-decoration: underline; font-weight: bold;">đ</span></p> 
+		            </div>
+					
+					<div class="d-flex justify-content-between pt-2">
+		              <p class="text-muted mb-0">Địa chỉ giao hàng:
+		              	<span style="font-weight: bold;" th:text="*{address}" readonly="readonly"></span>
+		              </p>
+		            </div>
+					
+		            <div class="d-flex justify-content-between pt-2">
+		              <p class="text-muted mb-0">Ngày đặt:
+		              	<span style="font-weight: bold;" th:text="*{createDate}" readonly="readonly"></span>
+		              </p>
+		            </div>
+					  <div class="d-flex justify-content-between pt-2">
+						  <p class="text-muted mb-0">Trạng thái thanh toán:
+							  <span th:if="*{paypalOrderStatus} == 'PAID'" style="font-weight: bold;" readonly="readonly">Đã thanh toán</span>
+							  <span th:unless="*{paypalOrderStatus} == 'PAID'" style="font-weight: bold;" readonly="readonly">Chưa thanh toán</span>
+						  </p>
+					  </div>
+		          </div>
+		          <div class="card-footer border-0 px-4 py-5"
+		            style="background-color: #7fad39; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+		            <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Tổng Thanh Toán: &nbsp<span class="h2 mb-0 ms-2" th:text="${#numbers.formatDecimal(newDiscountPrice, 0, 'POINT', 0, 'POINT')}"></span>&nbsp<span style="text-decoration: underline; font-weight: bold; font-size: 24px;text-transform: lowercase;">đ</span></h5>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</section>    
+	</main>
+</body>
+</html>

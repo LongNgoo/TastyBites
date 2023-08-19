@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/index :: dynamic(~{::main})}">
+
+<body>
+	<main>
+		<section class="breadcrumb-section set-bg" data-setbg="/assets/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Your Order</h2>
+                        <div class="breadcrumb__option">
+                            <a th:href="@{/home/index}">Home</a>
+                            <span>Your Order</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    </section>
+	    
+	    <section class="h-100 gradient-custom">
+		  <div class="container py-5 h-100">
+		    <div class="row d-flex justify-content-center align-items-center h-100">
+		      <div class="col-lg-10 col-xl-12">
+			    <table id="orderTable" class="table table-light table-borderless table-hover text-center mb-0">
+			        <thead style="background-color: #7fad39; color: #ffffff">
+			            <tr>
+			                <th>STT</th>
+			                <th>Mã hóa đơn</th>
+			                <th>Ngày đặt</th>
+			                <th>Địa chỉ đặt hàng</th>
+			                <th>Mã ví Paypal</th>
+			                <th>Trạng thái thanh toán Paypal</th>
+			                <th>Mã giảm giá</th>
+			                <th>Trạng thái</th>
+			                <th>Xem chi tiết</th>
+			            </tr>
+			        </thead>
+			        <tbody class="align-middle">
+			            <tr th:each="order, state: ${orders}">
+			                <td class="align-middle">[[${state.index+1}]]</td>
+			                <td class="align-middle">[[${order.id}]]</td>
+			                <td class="align-middle">[[${order.createDate}]]</td>
+			                <td class="align-middle">[[${order.address}]]</td>      
+			                <td class="align-middle">[[${order.paypalOrderId}]]</td>
+			                <td class="align-middle">[[${order.paypalOrderStatus}]]</td>
+			                <td class="align-middle">[[${order.discount?.id}]]</td>
+			                <td class="align-middle">
+				                <!-- Use Thymeleaf's conditional expression to set the appropriate CSS class -->
+				                <span th:class="${order.status == 'Đợi xác nhận' ? 'status-confirm'
+				                                    : order.status == 'Đang giao' ? 'status-waiting'
+				                                    : order.status == 'Đã giao' ? 'status-success'
+				                                    : order.status == 'Đã hủy' ? 'status-cancel'
+				                                    :''}">
+				                    [[${order.status}]]
+				                </span>
+				            </td>
+			                <td class="align-middle">
+			                    <a class="search" th:href="@{|/order/detail/${order.id}|}"><i class="fa fa-search"></i></a>
+			                </td>
+			            </tr>
+			        </tbody>
+			    </table>
+				    <div class="row mt-3">
+				    	<button id="loadMoreBtn" class="btn viewMore">Xem Thêm</button>
+				    </div>				    
+				</div>
+		    </div>
+		  </div>
+		</section>      
+	</main>
+</body>
+
+</html>

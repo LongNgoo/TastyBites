@@ -1,0 +1,68 @@
+<div ng-controller="ctrl-category">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card card-primary shadow">
+				<div class="card-header" style="display: flex; justify-content: space-between">
+					<h3 class="m-0 font-weight-bold text-primary">Category Management</h3>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label for="title">Id</label>
+						<input ng-model="form.id" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="title">Name</label>
+						<input ng-model="form.name" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="title">Image</label>
+						<div class="custom-file mb-4">
+	                    	<label for="image" class="custom-file-label">{{form.image}}</label>
+	                        <input onchange="angular.element(this).scope().imageChanged(this.files)" id="image" type="file" class="form-control ">
+	                    </div>	
+					</div>
+				</div>
+				<div class="card-footer">
+					<button ng-click="create()" class="btn btn-success btn-sm">Insert</button>
+					<button ng-click="update()" class="btn btn-warning btn-sm">Update</button>
+					<button ng-click="delete(form.id)" type="submit" class="btn btn-danger btn-sm">Delete</button>
+					<button ng-click="reset()" class="btn btn-primary btn-sm">Reset</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="card shadow mt-3">
+		<div class="card-header">
+			<h3 class="m-0 font-weight-bold text-primary">List Categories</h3>
+		</div>
+		<div class="card-body">
+			<table id="example1" class="table table-bordered table-striped text-center">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Image</th>
+						<th>Edit</th>
+					</tr>
+					
+				</thead>
+				<tbody>
+				
+					<tr ng-repeat="category in items">
+						<td>{{category.id}}</td>
+						<td>{{category.name}}</td>
+						<td>{{category.image}}</td>
+						<td>
+							<button ng-click="edit(category.id)" class="btn btn-light btn-sm">Edit</button>
+							<button ng-click="delete(category.id)" class="btn btn-danger btn-sm">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+			
+		</div>
+	</div>
+	
+</div>

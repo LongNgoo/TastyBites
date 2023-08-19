@@ -1,0 +1,133 @@
+<div ng-controller="ctrl-discount">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-primary shadow">
+        <div class="card-header">
+          <h3 class="m-0 font-weight-bold text-primary">Discount Management</h3>
+        </div>
+        <form name="myForm">
+          <div class="card-body row">
+
+		<div class="form-group col-md-6">
+              <label for="title">Discount Id</label>
+              <input ng-model="form.id" class="form-control">
+              <div class="errName" style='color: red;'></div>
+            </div>
+	
+
+            <div class="form-group col-md-6">
+              <label for="title">Discount name</label>
+              <input ng-model="form.name" class="form-control">
+              <div class="errName" style='color: red;'></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="title">Discount code</label>
+              <input ng-model="form.code" class="form-control">
+              <div class="errCode" style='color: red;'></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="title">Discount price</label>
+              <input ng-model="form.price" class="form-control">
+              <div class="errPrice" style='color: red;'></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="title">Discount quality</label>
+              <input ng-model="form.quality" class="form-control">
+              <div class="errQuality" style='color: red;'></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="title">Apply Day</label>
+              <input type="date" ng-model="form.applyDay" class="form-control">
+              <div class="errApplyDay" style='color: red;'></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="title">Expiration</label>
+              <input type="date" ng-model="form.expiration" class="form-control">
+              <div class="errExpiration" style='color: red;'></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="title">Created Date</label>
+              <input type="date" ng-model="form.createdate" class="form-control">
+              <div class="errCreatedDate" style='color: red;'></div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button ng-click="createDiscount()" class="btn btn-success btn-sm">Insert</button>
+            <button ng-click="updateDiscount()" class="btn btn-warning btn-sm">Update</button>
+            <button ng-click="deleteDiscount(form.id)" class="btn btn-danger btn-sm">Delete</button>
+            <button ng-click="reset()" class="btn btn-primary btn-sm">Reset</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mt-3">
+    <div class="card-header" style="display: flex; justify-content: space-between">
+      <h3 class="m-0 font-weight-bold text-primary">List Discounts</h3>
+      <h6>{{currentPage}} of {{totalPages()}}</h6>
+    </div>
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped text-center">
+        <thead>
+          <tr>
+            <td>Discount ID</td>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Quality</th>
+            <th>Apply Day</th>
+            <th>Expiration</th>
+            <th>Created Date</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="discount in discounts">
+            <td style="width: 10%">{{discount.id}}</td>
+            <td style="width: 20%">{{discount.name}}</td>
+            <td style="width: 10%">{{discount.code}}</td>
+            <td>{{discount.price}}</td>
+            <td>{{discount.quality}}</td>
+            <td>{{discount.applyDay}}</td>
+            <td>{{discount.expiration}}</td>
+            <td>{{discount.createdate}}</td>
+            <td>
+              <button ng-click="editDiscount(discount.id)" class="btn btn-light btn-sm">Edit</button>
+              <button ng-click="deleteDiscount(discount.id)" class="btn btn-danger btn-sm">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="col-12">
+        <div class="col-12">
+          <nav aria-label="..." class="mt-4 d-flex justify-content-center">
+            <ul class="pagination">
+              <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href=""
+                  ng-click="setPageFirst()">First</a></li>
+
+              <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href=""
+                  ng-click="setPage(currentPage - 1)">Previous</a></li>
+
+              <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href=""
+                  ng-click="setPage(currentPage + 1)">Next</a></li>
+
+              <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href=""
+                  ng-click="setPageLast()">Last</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

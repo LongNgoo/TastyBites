@@ -1,0 +1,143 @@
+<div ng-controller="ctrl-product">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card card-primary shadow">
+				<div class="card-header">
+					<h3 class="m-0 font-weight-bold text-primary">Product Management</h3>
+				</div>
+				<form name="myForm">
+				<div class="card-body row">
+				
+					<div class="form-group col-md-6">
+						<label for="title">Category id</label>
+						<select ng-model="form.category.id" class="form-control">
+			                <option ng-repeat="x in categories" ng-value="x.id">{{x.id}}</option>
+			            </select>
+			            <div class="errcategory" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">Product id</label>
+						<input ng-model="form.id" class="form-control">
+						<div class="erridProduct" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">Product name</label>
+						<input ng-model="form.name" class="form-control">
+						<div class="errName" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">Product price</label>
+						<input ng-model="form.price" class="form-control">
+						<div class="errPrice" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">Product quantity</label>
+						<input ng-model="form.productQuantity" class="form-control">
+						<div class="errproductQuantity" style='color: red;' ></div>
+					</div>
+					
+					
+					
+					<div class="form-group col-md-6">
+						<label for="title">Available</label>
+						<input ng-model="form.available" class="form-control">
+						<div class="erravailable" style='color: red;' ></div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						<label for="title">Star</label>
+						<input ng-model="form.star" class="form-control">
+						<div class="errstatus" style='color: red;' ></div>
+					</div>
+
+						<div class="form-group col-md-6">
+						<label for="title">Product image</label>
+						<div class="custom-file mb-4">
+	                    	<label for="image" class="custom-file-label">{{form.image}}</label>
+	                        <input onchange="angular.element(this).scope().imageChanged(this.files)" id="image" type="file" class="form-control ">
+	                        
+	                    </div>						
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="title">Description</label>
+						<textarea ng-model="form.description" class="form-control" rows="5" cols="4"></textarea>
+						<div class="errdescription" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6 text-center" style="align-items: center; display: flex;">
+						<label for="image" style="margin: 0;width: 170px; height: 160px;">
+							<img ng-src="{{'/assets/img/product/' + form.image}}" style="width: 100%;height:100%" />
+						</label>
+					</div>
+				</div>
+				<div class="card-footer">
+					<button ng-click="create()" class="btn btn-success btn-sm">Insert</button>
+					<button ng-click="update()" class="btn btn-warning btn-sm">Update</button>
+					<button ng-click="delete(form.productId)" class="btn btn-danger btn-sm">Delete</button>
+					<button ng-click="reset()" class="btn btn-primary btn-sm">Reset</button>
+				</div>
+				
+			</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="card shadow mt-3">
+		<div class="card-header" style="display: flex; justify-content: space-between">
+			<h3 class="m-0 font-weight-bold text-primary">List Products</h3>
+			<h6>{{currentPage}} of {{totalPages()}}</h6>
+		</div>
+		<div class="card-body">
+			<table id="example1" class="table table-bordered table-striped text-center">
+				<thead>
+					<tr>
+						<td>Product id</td>
+						<th>Name</th>
+						<th>Image</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Create date</th>
+						<th>Available</th>
+						<th>Status</th>
+						<th>CategoryId</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="product in getCurrentItems()">
+						<td style="width: 10%">{{product.id}}</td>
+						<td style="width: 20%">{{product.name}}</td>
+						<td style="width: 10%"><img style="width: 50%; height: auto" ng-src="/folder/images/{{product.image}}" alt="" /></td>
+						<td style="width: 5%">{{product.productQuantity}}</td>
+						<td>${{product.price}}</td>
+						<td>{{product.createDate}}</td>
+						<td>${{product.available}}</td>
+						<td>${{product.status}}</td>
+						<td style="width: 5%">{{product.category.id}}</td>
+						<td>
+							<button ng-click="edit(product.id)" class="btn btn-light btn-sm">Edit</button>
+							<button ng-click="delete(product.id)" class="btn btn-danger btn-sm">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="col-12">
+				<div class="col-12">
+					<nav aria-label="..." class="mt-4 d-flex justify-content-center">
+	                	<ul class="pagination">
+	                	    <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href="" ng-click="setPageFirst()">First</a></li>
+	
+	                	    <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href="" ng-click="setPage(currentPage - 1)">Previous</a></li>
+	                            
+	                	    <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href="" ng-click="setPage(currentPage + 1)">Next</a></li>
+	
+	                	    <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href="" ng-click="setPageLast()">Last</a></li>
+	                	</ul>
+	                </nav>
+				</div>		
+			</div>
+			
+		</div>
+	</div>
+</div>

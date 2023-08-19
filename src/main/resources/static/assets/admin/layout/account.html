@@ -1,0 +1,201 @@
+<style>
+	.row {
+	    display: flex;
+	    width: 100%;
+	    align-items: center; /* Vertically align items */
+	    position: relative; /* To position the toggle icon */
+	   	margin-left: 0px;
+	}
+	
+	/* Style for the password toggle icon */
+	.toggle-password {
+	    cursor: pointer;
+	    transition: color 0.3s ease-in-out;
+	    margin-left: -30px; /* Adjust the spacing */
+	    z-index: 1; /* Make sure the icon appears above the input */
+	    color: rgb(171, 167, 167);
+	}
+	
+	/* Style for the password toggle icon on hover */
+	.toggle-password:hover {
+	    color: rgb(151, 145, 145);
+	}
+</style>
+<div ng-controller="ctrl-accountadmin">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card card-primary shadow">
+				<div class="card-header">
+					<h3 class="m-0 font-weight-bold text-primary">Account Management</h3>
+				</div>
+				<form name="myForm">
+				<div class="card-body row">
+					<div class="form-group col-md-6">
+						<label for="title">Username</label>
+						<input ng-model="form.username" class="form-control">
+			            <div class="errcategory" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">Password </label>
+						<div class="row">
+							<input type="{{ showPassword ? 'text' : 'password' }}" ng-model="form.password" class="form-control">
+							<div class="erridProduct" style='color: red;' ></div>
+							<a ng-click="toggleShowPassword()" class="toggle-password">
+							    <i ng-class="{'fas fa-eye': showPassword, 'fas fa-eye-slash': !showPassword}"></i>
+							</a>
+						</div>	
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">FullName</label>
+						<input ng-model="form.fullname" class="form-control">
+						<div class="errName" style='color: red;' ></div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="title">Email</label>
+						<input ng-model="form.email" class="form-control">
+						<div class="errPrice" style='color: red;' ></div>
+					</div>
+
+					<div class="form-group col-md-6">
+					<label for="title">Image</label>
+					<div class="custom-file mb-4">
+                    	<label for="image" class="custom-file-label">{{form.photo}}</label>
+                        <input onchange="angular.element(this).scope().imageChanged(this.files)" id="image" type="file" class="form-control ">
+                        
+                    </div>							
+					</div>
+					<div class="form-group col-md-6 text-center" style="align-items: center; display: flex;">
+						<label for="image" style="margin: 0;width: 170px; height: 160px;">
+							<img ng-src="{{'/assets/img/user/' + form.photo}}" style="width: 100%;height:100%" />
+						</label>
+					</div>
+				</div>
+				<div class="card-footer">
+					<button ng-click="create()" class="btn btn-success btn-sm">Insert</button>
+					<button ng-click="update()" class="btn btn-warning btn-sm">Update</button>
+					<button ng-click="delete(form.username)" class="btn btn-danger btn-sm">Delete</button>
+					<button ng-click="reset()" class="btn btn-primary btn-sm">Reset</button>
+				</div>
+				
+			</div>
+			</form>
+		</div>
+	</div>
+	<div class="card shadow mt-3">
+	    <div class="card-header" style="display: flex; justify-content: space-between">
+	        <h3 class="m-0 font-weight-bold text-primary">List Account</h3>
+	        <h6>{{currentPage}} of {{totalPages()}}</h6>
+	    </div>
+	    <div class="card-body">
+			<ul class="nav nav-tabs bg-light" id="myTab" role="tablist">
+			  <li class="nav-item active" role="presentation">
+			    <a class="nav-link fw-bold active" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit-tab-pane" type="button" role="tab"
+			      aria-controls="edit-tab-pane"
+			      aria-selected="true">
+			      Team Members
+			    </a>
+			  </li>
+			  <li class="nav-item" role="presentation">
+			    <a class="nav-link fw-bold" id="list-tab" data-bs-toggle="tab" data-bs-target="#list-tab-pane" type="button" role="tab" aria-controls="list-tab-pane"
+			      aria-selected="false">
+			      Customers
+			    </a>
+			  </li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+			  <div class="tab-pane fade  show active" id="edit-tab-pane" role="tabpanel" aria-labelledby="edit-tab" tabindex="0">
+			  	<!--Content tab 1-->
+			  	<div class="col-12 mt-3">
+		            <table id="example1" class="table table-bordered table-striped text-center">
+						<thead>
+							<tr>
+								<td>Username</td>
+								<th>Password</th>
+								<th>Fullname</th>
+								<th>Email</th>
+								<th>Photo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="account in getCurrentItems()">
+								<td >{{account.username}}</td>
+								<td >{{account.password}}</td>
+								<td >{{account.fullname}}</td>
+								<td >{{account.email}}</td>
+								<td >{{account.photo}}</td>
+								<td>
+									<button ng-click="edit(account.username)" class="btn btn-light btn-sm">Edit</button>
+									<button ng-click="delete(account.username)" class="btn btn-danger btn-sm">Delete</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class="col-12">
+						<div class="col-12">
+							<nav aria-label="..." class="mt-4 d-flex justify-content-center">
+			                	<ul class="pagination">
+			                	    <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href="" ng-click="setPageFirst()">First</a></li>
+			
+			                	    <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href="" ng-click="setPage(currentPage - 1)">Previous</a></li>
+			                            
+			                	    <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href="" ng-click="setPage(currentPage + 1)">Next</a></li>
+			
+			                	    <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href="" ng-click="setPageLast()">Last</a></li>
+			                	</ul>
+			                </nav>
+						</div>		
+					</div>
+		        </div>
+			  	
+			  </div>
+			  <div class="tab-pane fade" id="list-tab-pane" role="tabpanel" aria-labelledby="list-tab" tabindex="0">
+			    <!--Content tab 2-->
+			    <div class="col-12 mt-3">
+		            <table id="example2" class="table table-bordered table-striped text-center">
+						<thead>
+							<tr>
+								<td>Username</td>
+								<th>Password</th>
+								<th>Fullname</th>
+								<th>Email</th>
+								<th>Photo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="account in getCurrentItems2()">
+								<td >{{account.username}}</td>
+								<td >{{account.password}}</td>
+								<td >{{account.fullname}}</td>
+								<td >{{account.email}}</td>
+								<td >{{account.photo}}</td>
+								<td>
+									<button ng-click="edit(account.username)" class="btn btn-light btn-sm">Edit</button>
+									<button ng-click="delete(account.username)" class="btn btn-danger btn-sm">Delete</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class="col-12">
+						<div class="col-12">
+							<nav aria-label="..." class="mt-4 d-flex justify-content-center">
+			                	<ul class="pagination">
+			                	    <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href="" ng-click="setPageFirst()">First</a></li>
+			
+			                	    <li ng-class="{disabled: currentPage == 1}" class="page-item"><a class="page-link" href="" ng-click="setPage(currentPage - 1)">Previous</a></li>
+			                            
+			                	    <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href="" ng-click="setPage(currentPage + 1)">Next</a></li>
+			
+			                	    <li ng-class="{disabled: currentPage == totalPages()}" class="page-item"><a class="page-link" href="" ng-click="setPageLast()">Last</a></li>
+			                	</ul>
+			                </nav>
+						</div>		
+					</div>
+		        </div>
+			    
+			  </div>
+			</div>
+	    </div>
+	</div>
+</div>

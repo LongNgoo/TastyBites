@@ -1,0 +1,71 @@
+<!-- Main content -->
+<div ng-controller="ctrl-favourite">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card shadow">
+				<div class="card-header">
+					<h3 class="card-title">Favorites Statistic</h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Category id</th>
+								<th>Product id</th>
+								<th>Product name</th>
+								<th>Image</th>
+								<th>Total like</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="favourite in favourites">
+								<th style="width: 15%">{{favourite.categoryId}}</th>
+								<th style="width: 15%">{{favourite.productId}}</th>
+								<th style="width: 45%">{{favourite.productName}}</th>
+								<th class="text-center" style="width: 10%"><img style="width: 50%; height: auto" ng-src="/folder/images/{{favourite.productImage}}" alt="" /></th>
+								<th>{{favourite.totalLikes}}</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div>
+	</div>
+	
+	<div class="card shadow mt-3">
+		<div class="card-header">
+			<h3 class="card-title">Favorites info</h3>
+		</div>
+		<!-- /.card-header -->
+		<div class="card-body">
+			<div class="form-group">
+				<label>List products</label>
+				<!-- ng-model để liên kết biến $scope.selectedProductId với select box. -->
+				<!-- ng-change để gọi hàm showUserLikedProduct() -->
+				<select ng-model="selectedProductId" ng-change="showUserLikedProduct()" class="form-control">
+					<option ng-repeat="x in products" ng-value="x.productId">{{x.name}}</option>
+				</select>
+			</div>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- ng-repeat hiển thị dữ liệu lên bảng table. -->
+					<tr ng-repeat="acc in accounts">
+						<td>{{acc.userFullname}}</td>
+						<td>{{acc.userEmail}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- /.card-body -->
+	</div>
+
+</div>
