@@ -47,7 +47,7 @@ public class AccountController {
                 emailService.send(mail); // Send the email
 
                 // Save the hashed password in the database
-                accountService.updatePassword(account, newPass);
+                accountService.changePassword(account, newPass);
 
                 return "user/security/login_register";
             } catch (MessagingException e) {

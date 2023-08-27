@@ -66,5 +66,16 @@ public class AccountRestController {
 		return accountService.findAll();
 	}
 
+	@PutMapping("/rest/account/{username}/change-password")
+	public ResponseEntity<Account> changePassword(@PathVariable String username, @RequestBody String newPassword) {
+	    Account account = accountService.findById(username);
+	    if (account == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    
+	    account = accountService.changePassword(account, newPassword);
+	    return ResponseEntity.ok(account);
+	}
+
 }
 

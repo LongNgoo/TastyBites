@@ -47,7 +47,7 @@
 									<li><a data-bs-toggle="modal" data-bs-target="#profileModal" style="cursor: pointer;">Thông Tin Đăng Nhập</a></li>
 									<li
 										th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}">
-										<a href="#">Trang Quản Trị</a>
+										<a th:href="@{/admin/index}">Trang Quản Trị</a>
 									</li>
 									<li><a th:href="@{/security/logoff}">Đăng Xuất</a></li>
 								</th:block>
@@ -265,7 +265,7 @@
     <!-- Hero Section End -->
     
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" style="max-width: 850px;">
+	  <div class="modal-dialog" style="max-width: 1000px;">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="profileModalLabel">Thông Tin Tài Khoản</h5>

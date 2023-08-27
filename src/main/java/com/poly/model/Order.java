@@ -42,6 +42,8 @@ public class Order implements Serializable{
 	private Discount discount;
 	@Column(name = "Status")
 	private String status = "Đợi xác nhận";
+	@Column(name = "Cancellationreason")
+	private String cancellationReason = null;
 	@Column(name = "Paypalorderid")
 	private String paypalOrderId;
 	@Column(name = "Paypalorderstatus")

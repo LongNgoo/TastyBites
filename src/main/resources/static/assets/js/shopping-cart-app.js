@@ -24,6 +24,22 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 	    }
 	}
 	
+	$scope.changePassword = function() {
+    var username = document.querySelector('#username2').innerText.trim();
+    var newPassword = $scope.passwordData.newPassword;
+    
+    $http.put(`/rest/account/${username}/change-password`, newPassword)
+        .then(resp => {
+            console.log("Password changed successfully", resp);
+            alert("Đổi Mật Khẩu Thành Công !");
+        })
+        .catch(error => {
+            console.log("Error changing password", error);
+            alert("Đổi Mật Khẩu Thất Bại");
+        });
+};
+
+	
 	$scope.load_one();
 	
 	$scope.update = function(){
@@ -263,7 +279,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
       var isPaypal = document.getElementById("paypal");
       if (isPaypal.checked == true) {
       console.log(isPaypal.checked);
-        alert("Đặt!");
+        alert("Đặt hàng thành công!");
         $http.post("/rest/checkout", order).then((resp) => {
            $scope.cart.clear();
            location.href = resp.data.url;

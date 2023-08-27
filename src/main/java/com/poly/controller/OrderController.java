@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.TotalProductsUtil;
 import com.poly.model.Category;
 import com.poly.model.Discount;
+import com.poly.model.Order;
 import com.poly.service.CategoryService;
 import com.poly.service.DiscountService;
 import com.poly.service.OrderService;
@@ -44,6 +46,17 @@ public class OrderController {
   		
 		
 		return "user/order/list";
+	}
+	
+	@RequestMapping("/order/cancel/{id}")
+	public String cancelOrder(@PathVariable("id") Long id, @RequestParam("cancellationReason") String cancellationReason) {
+	    Order order = orderService.findById(id);
+	    if (order != null) {
+	        order.setStatus("Đã hủy");
+	        order.setCancellationReason(cancellationReason);
+	        orderService.update(order);
+	    }
+	    return "redirect:/order/list"; // Chuyển hướng về trang danh sách đơn hàng
 	}
 	
 	@RequestMapping("/order/detail/{id}")

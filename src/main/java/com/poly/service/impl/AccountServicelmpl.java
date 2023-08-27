@@ -65,11 +65,12 @@ public class AccountServicelmpl implements AccountService{
     }
 
 	
-	@Override
-    public Account updatePassword(Account account, String newPassword) {
-        account.setPassword(passwordEncoder.encode(newPassword)); // Hash the new password before saving
-        return dao.save(account);
-    }
+	 @Override
+	 public Account changePassword(Account account, String newPassword) {
+	     account.setPassword(passwordEncoder.encode(newPassword)); // Hash the new password before saving
+	     return dao.save(account);
+	 }
+
 	
 	@Override
     public Account resetPassword(String email) {

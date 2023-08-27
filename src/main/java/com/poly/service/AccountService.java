@@ -20,8 +20,8 @@ public interface AccountService {
 
 	Account resetPassword(String email);
 
-	Account updatePassword(Account account, String newPassword);
-	
+	Account changePassword(Account account, String newPassword);
+
 	Account update(Account account);
 
 	void delete(String id);

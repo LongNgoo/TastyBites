@@ -1,0 +1,101 @@
+<section class="h-100 gradient-custom" xmlns:th="http://www.thymeleaf.org">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-12">
+        <div class="card" style="border-radius: 10px;">
+          <div class="card-header px-4 py-5">
+            <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #a8729a;font-weight: bold;">{{order.account.fullname}}</span> <i class="fa-solid fa-heart-pulse"></i></h5>
+          </div>
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #a8729a;font-weight: bold;">Receipt</p>
+              <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
+            </div>
+            <div class="card shadow-0 border mb-4">
+              <div class="card-body">
+              	<div class="d-flex justify-content-between pt-2">
+	              <p class="fw-bold mb-0">Mã Khách Hàng: 
+	              	<span style="font-weight: bold;"readonly>{{order.account.username}}</span>
+	              </p>
+	              <p class="text-muted mb-0">Mã hóa đơn:
+	              	<span style="font-weight: bold;" class="fw-bold me-4">{{order.id}}</span>
+	              
+	              </p>
+	            </div>
+	
+	            <div class="d-flex justify-content-between pt-2">
+	              <p class="text-muted mb-0">Tên Khách Hàng:
+	              	 <span style="font-weight: bold;" readonly>{{order.account.fullname}}</span>
+	              </p>
+	              <p class="text-muted mb-0">Trạng Thái:
+	              	<span style="font-weight: bold;" class="fw-bold me-4">{{order.status}}</span> 
+	              </p>
+	            </div>
+	
+	            <div class="d-flex justify-content-between pt-2">
+	              <p class="text-muted mb-0">Email: 
+	              	<span style="font-weight: bold;"readonly="readonly">{{order.account.email}}</span>
+	              </p>
+	              <p class="text-muted mb-0">Thời Gian:
+	             	<span style="font-weight: bold;" class="fw-bold me-4">{{order.createDate | date: 'dd/MM/yyyy'}} lúc {{order.createDate | date: 'hh:mm:ss'}}</span> 
+	              </p>
+	            </div>
+				
+				<div class="d-flex justify-content-between pt-2 pb-4">
+	              <p class="text-muted mb-0">Địa chỉ giao hàng:
+	              	<span style="font-weight: bold;" readonly="readonly">{{order.address}}</span>
+	              </p>
+	            </div>	
+              	<div class="row">
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0" style="font-weight: bold;">Hình</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0" style="font-weight: bold;">Mã Sản Phẩm</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small" style="font-weight: bold;">Tên Sản Phẩm</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small" style="font-weight: bold;">Giá</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small" style="font-weight: bold;">Số Lượng</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small" style="font-weight: bold;">Tổng</span></p>
+                  </div>
+                </div>
+                <div class="row" ng-repeat="ord in list_orderDetail">
+                  <div class="col-md-2 mt-4" >
+                    <img src="/assets/img/product/{{ord.product.image}}" style="border:0; object-fit: contain;width: 100%; height: 80%;">
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0">{{ord.product.id}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small">{{ord.product.name}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small">{{ord.price | number}} đ</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small">{{ord.quantity}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center" style="font-size: 20px;">
+                    <p class="text-muted mb-0 small">{{ord.price * ord.quantity | number}} đ</p>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div>
+          <div class="card-footer border-0 px-4 py-5"
+            style="background-color: #7fad39; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+            <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Tổng Tiền:
+              &nbsp<span class="h2 mb-0 ms-2">{{totalPrice | number}}</span>&nbsp<span style="text-decoration: underline; font-weight: bold; font-size: 24px;text-transform: lowercase;">đ</span></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

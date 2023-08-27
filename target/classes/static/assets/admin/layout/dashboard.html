@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Boxicons -->
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css'
+	rel='stylesheet'>
+<!-- My CSS -->
+
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css'
+	rel='stylesheet'>
+<link rel="stylesheet" href="/assets/admin/css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<title>AdminHub</title>
+</head>
+<body>
+	<div ng-controller="ctrl-dashboard">
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li><a href="/admin/index">Home</a></li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li><a class="active" href="#dashboard">Dashboard</a></li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download"> <i
+					class='bx bxs-cloud-download'></i> <span class="text">Download
+						PDF</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li><i class='bx bxs-calendar-check'></i> <span class="text">
+						<h3 id="totalOrder">Loading...</h3>
+						<p>New Order</p>
+				</span></li>
+				<li><i class='bx bxs-group'></i> <span class="text">
+						<h3 id="viewVistor">Loading...</h3>
+						<p>Visitors</p>
+				</span></li>
+				<li><i class='bx bxs-dollar-circle'></i> <span class="text">
+						<h3 id="totalPriceOrder">Loading...</h3>
+						<p>Total Sales</p>
+				</span></li>
+			</ul>
+
+			<div class="data">
+				<div class="content-data">
+					<div class="head">
+						<h3>Sales Report</h3>
+						<div class="menu">
+							<i class='bx bx-dots-horizontal-rounded icon'></i>
+							<ul class="menu-link">
+								<li><a href="#">Edit</a></li>
+								<li><a href="#">Save</a></li>
+								<li><a href="#">Remove</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="chart"></div>
+					</div>
+				</div>
+
+				<div class="table-data">
+					<div class="order">
+						<div class="head">
+							<h3>Recent Orders</h3>
+							<i class='bx bx-search'></i> <i class='bx bx-filter'></i>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>User</th>
+									<th>Date Order</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in items  | limitTo: visibleRows">
+									<td><img src="/assets/admin/img/people.png">
+										<p>{{item.account.username}}</p></td>
+									<td>{{item.createDate}}</td>
+									<td><span
+										class="{{item.status == 'Đợi xác nhận' ? 'status-confirm'
+				                                    : item.status == 'Đang giao' ? 'status-waiting'
+				                                    : item.status == 'Đã giao' ? 'status-success'
+				                                    : item.status == 'Đã hủy' ? 'status-cancel'
+				                                    :''}}">
+											{{item.status}} </span></td>
+								</tr>
+							</tbody>
+						</table>
+						 <div class="row mt-3">
+						 	<button ng-click="showMoreRows()" class="btn viewMore">Xem thêm</button>
+						 </div>
+					</div>
+
+
+
+					<div class="todo">
+						<div class="head">
+							<h3>Todos</h3>
+							<i class='bx bx-plus'></i> <i class='bx bx-filter'></i>
+						</div>
+						<ul class="todo-list">
+							<li class="completed">
+								<p>Todo List</p> <i class='bx bx-dots-vertical-rounded'></i>
+							</li>
+							<li class="completed">
+								<p>Todo List</p> <i class='bx bx-dots-vertical-rounded'></i>
+							</li>
+							<li class="not-completed">
+								<p>Todo List</p> <i class='bx bx-dots-vertical-rounded'></i>
+							</li>
+							<li class="completed">
+								<p>Todo List</p> <i class='bx bx-dots-vertical-rounded'></i>
+							</li>
+							<li class="not-completed">
+								<p>Todo List</p> <i class='bx bx-dots-vertical-rounded'></i>
+							</li>
+						</ul>
+					</div>
+				</div>
+		</main>
+	</div>
+	<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+
+</body>
+</html>

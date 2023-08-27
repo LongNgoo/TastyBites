@@ -35,6 +35,8 @@ public class ShoppingCartController {
 
 	@RequestMapping("/cart/view/discount")
 	public String getDiscount(@RequestParam(defaultValue = "")  String code, Model model) {
+		List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
 		Discount foundDiscount = discountService.findByCode(code);
 		if (foundDiscount == null) {
 			model.addAttribute("error", "Code không tồn tại");

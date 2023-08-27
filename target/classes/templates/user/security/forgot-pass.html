@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/assets/css/forgotpass.css">
+<script src="/assets/js/contact.js"></script>
+	<script src="/assets/js/jqBootstrapValidation.min.js"></script>
+
+<body>
+	<main>
+		<!-- Contact Start -->
+	    <div class="container-fluid">
+	        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4 text-center"><span class="bg-secondary pr-3">Forgot password</span></h2>
+	        <i class="section-title position-relative text-uppercase mx-xl-5 mb-4" th:text=${messageLogin}></i>
+	        <div class="row px-xl-5">
+	            <div class="col-lg-12 mb-5">
+	                <div class="contact-form bg-light p-30">
+	                    <form th:action="@{/account/forgot-pass}" method="post">
+	                        <div class="control-group">
+	                        	<label>Email</label>
+	                            <input id="email" name="email" type="text" class="form-control" />
+	                            <p class="help-block text-danger"></p>
+	                        </div>
+	                        <div>
+	                            <button class="btn btn-primary py-2 px-4" type="submit">Send</button>
+	                        </div>
+	                    </form>
+	                    <div id="success"></div>
+	                </div>
+	            </div>
+	
+	        </div>
+	    </div>
+	    <!-- Contact End -->
+	    
+	</main>
+</body>
+
+</html>

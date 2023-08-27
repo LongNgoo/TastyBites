@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/img/Icon_logo.png"/>
+    <title>TastyBites</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style_login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="account">
+    <div th:class="'container ' + ${regisActive}" id="container" >
+        <div class="form-container register-container" ng-controller="ctrl-account">
+            <form>
+                <a style="margin-bottom: -10px" th:href="@{/home/index}"><img alt="" src="/assets/img/logo.png"></a>
+                <h1>Register</h1>
+                <input type="text" placeholder="Username" ng-model="form.username" id="username" name="username">
+                <input type="text" placeholder="Fullname" ng-model="form.fullname" id="fullname" name="fullname">
+                <input type="text" placeholder="Email" ng-model="form.email" id="userEmail" name="userEmail" >
+                <input type="text" placeholder="Phone" ng-model="form.phone" id="phone" name="phone" >
+                <div class="row">
+            		<input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Password" ng-model="form.password" id="password" name="password">
+					<a ng-click="toggleShowPassword()" class="toggle-password">
+					    <i ng-class="{'fas fa-eye-slash': showPassword, 'fas fa-eye': !showPassword}"></i>
+					</a>		
+				</div>
+                <button ng-click="create()">Register</button>
+                <span>or use your account</span>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+                    <a href="#" class="social"><i class="lni lni-google"></i></a>
+                    <a href="#" class="social"><i class="lni lni-twitter-original"></i></a>
+                </div>
+                <div id="error-message-register" class="error-message-register" ng-show="errorMessage">{{ errorMessage }}</div>
+            <div id="success-message-register" class="success-message-register" ng-show="successMessage">{{ successMessage }}</div>
+            </form>
+            <div class="loading-overlay" ng-show="loading">
+            <div class="loading-spinner"></div>
+        </div>
+        </div>
+        
+
+        <div class="form-container login-container">
+            <form name="frmtk" id="login-form" th:action="@{/security/login}" method="post">
+                <a style="margin-bottom: -10px" th:href="@{/home/index}"><img alt="" src="/assets/img/logo.png"></a>
+                <h1>Login</h1>
+                <input type="text" placeholder="User Name" id="typeEmailX" name="username">
+                <div class="row">
+            		<input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Password" ng-model="form.password" id="typePasswordX" name="password">
+					<a class="toggle-password2">
+					    <i class="fas fa-eye"></i>
+					</a>		
+				</div>
+                <div class="content">
+                    <div class="checkbox">
+                        <input type="checkbox" name="checkbox" id="defaultCheck1">
+                        <label for="defaultCheck1">Remember me</label>
+                    </div>
+                    <div class="pass-link">
+                        <a th:href="@{/account/forgot-pass}">Forgot password</a>
+                    </div>
+                </div>
+                <button type="submit" id="login-button">Login</button>
+                <span>or use your account</span>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+                    <a href="#" class="social"><i class="lni lni-google"></i></a>
+                    <a href="#" class="social"><i class="lni lni-twitter-original"></i></a>
+                </div>
+                <div id="error-message">
+                    <i th:text="${message}"></i>
+                </div>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 class="title">Hello<br>Friend</h1>
+                    <p>If you have an account<br>login here and have fun</p>
+                    <button class="ghost" id="login">Login
+                        <i class="lni lni-arrow-left login"></i>
+                    </button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1 class="title">Welcome<br>Back</h1>
+                    <p>Enter your personal details and start your journey with us</p>
+                    <button class="ghost" id="register">Register
+                        <i class="lni lni-arrow-right register"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/account.js"></script>
+    <script>
+	    document.addEventListener('DOMContentLoaded', function () {
+	        const togglePasswordButton = document.querySelector('.toggle-password2');
+	        const passwordInput = document.querySelector('#typePasswordX');
+	        const iconElement = togglePasswordButton.querySelector('i');
+	
+	        togglePasswordButton.addEventListener('click', function () {
+	            const passwordFieldType = passwordInput.getAttribute('type');
+	            
+	            if (passwordFieldType === 'password') {
+	                passwordInput.setAttribute('type', 'text');
+	                iconElement.classList.remove('fa-eye');
+	                iconElement.classList.add('fa-eye-slash');
+	            } else {
+	                passwordInput.setAttribute('type', 'password');
+	                iconElement.classList.remove('fa-eye-slash');
+	                iconElement.classList.add('fa-eye');
+	            }
+	        });
+	    });
+	</script>
+
+</body>
+</html>

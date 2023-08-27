@@ -50,8 +50,8 @@ public class FavouriteAdminRestController {
 		List<Map<String, Object>> response = new ArrayList<>();
 		for (Object[] row : result) {
 			Map<String, Object> item = new HashMap<>();
-			item.put("userFullname", row[0]);
-			item.put("userEmail", row[1]);
+			item.put("username", row[0]);
+			item.put("email", row[1]);
 			response.add(item);
 		}
 		return ResponseEntity.ok(response);

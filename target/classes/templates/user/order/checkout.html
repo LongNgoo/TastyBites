@@ -1,0 +1,69 @@
+<section class="checkout spad" xmlns:th="http://www.thymeleaf.org">
+	<div class="container">
+		<div class="checkout__form">
+			<form>
+				<div class="row">
+					<div class="col-lg-7 col-md-6">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="checkout__input">
+									<label for="inputEmail4" class="form-label">Người nhận<span
+										class="star">*</span></label>
+									<div class="form-control" id="username">[[${#request.remoteUser}]]</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="checkout__input">
+									<label for="inputPassword4" class="form-label">Ngày đặt<span
+										class="star">*</span></label>
+									<div class="form-control">{{order.createDate|date:'dd-MM-yyyy'}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="checkout__input">
+							<label for="inputAddress" class="form-label">Địa chỉ giao
+								hàng<span class="star">*</span>
+							</label>
+							<textarea ng-model="order.address" class="form-control"
+								id="exampleFormControlTextarea1" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="col-lg-5 col-md-6">
+						<div class="checkout__order">
+							<h4>Đơn Hàng</h4>
+							<div class="checkout__order__products">
+								Sản Phẩm <span>Tổng</span>
+							</div>
+							<ul ng-repeat="item in cart.items">
+								<li>{{item.name}}<span>{{item.price*item.qty|number}}&nbsp;<span style="text-decoration: underline;">đ</span></span></li>
+							</ul>
+							<div class="checkout__order__subtotal">
+								Tổng Tiền <span>{{(getSubtotal())|number}}&nbsp;<span style="text-decoration: underline;">đ</span></span>
+							</div>
+							<div class="checkout__order__total">
+								Phí Vận Chuyển <span style="text-decoration: underline;">đ</span> <span>15,000</span>
+							</div>
+							<div class="checkout__order__total">
+								Giảm Giá <span style="text-decoration: underline;">đ</span> <span th:text="${#numbers.formatDecimal(discount.price, 0, 'POINT', 0, 'POINT')}"></span>
+							</div>
+							<div class="checkout__order__total">
+								Tổng Thanh Toán <span>{{(getTotal())|number}}&nbsp;<span style="text-decoration: underline;">đ</span></span>
+							</div>
+							<div class="checkout__input__checkbox">
+								<label for="payment"> Check Payment <input
+									type="checkbox" id="payment"> <span class="checkmark"></span>
+								</label>
+							</div>
+							<div class="checkout__input__checkbox">
+								<label for="paypal"> Paypal <input type="checkbox"
+									id="paypal"> <span class="checkmark"></span>
+								</label>
+							</div>
+							<button ng-click="order.purchase()" class="site-btn">Đặt Hàng</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
